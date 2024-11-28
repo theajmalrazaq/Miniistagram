@@ -7,11 +7,13 @@ private:
     string username;
     string password;
     string email;
+    string first_name;
+    string last_name;
     char gender;
     string DOB;
 
 public:
-    User();
+    User(string username, string email, string password, string first_name, string last_name, string DOB, char gender);
     void setusername(string);
     void setpassword(string);
     void setemail(string);
@@ -22,7 +24,4 @@ public:
     string getemail();
     char getgender();
     string getDOB();
-    void signin();
-    void forgotpassword();
-    void signup();
 };

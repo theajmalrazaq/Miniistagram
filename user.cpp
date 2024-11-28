@@ -1,10 +1,12 @@
 #include "user.h"
 #include "validations.h"
 
-User::User() {};
-void User::setusername(string username)
+User::User(string username, string email, string password, string first_name, string last_name, string DOB, char gender)
 {
-    this->username = username;
+    this->first_name = first_name;
+    this->last_name = last_name;
+    this->DOB = DOB;
+    this->gender = gender;
 }
 void User::setpassword(string password)
 {
@@ -43,81 +45,4 @@ string User::getDOB()
 char User::getgender()
 {
     return gender;
-}
-
-void User::signup()
-{
-    cout << "Enter the following details to sign up: " << endl;
-    ///////////////////////////// Username //////////////////////////////////
-    string username;
-    cout << "Enter username: ";
-    getline(cin, username);
-    while (!validateusername(username))
-    {
-        cout << "Invalid username. Please enter a valid username: ";
-        getline(cin, username);
-    }
-    setusername(username);
-    ///////////////////////////// Password //////////////////////////////////
-    string password;
-    cout << "Enter password: ";
-    getline(cin, password);
-    while (!validate_strong_password(password))
-    {
-        cout << "Invalid password. Please enter a strong password: ";
-        getline(cin, password);
-    }
-    setpassword(password);
-    ///////////////////////////// Email //////////////////////////////////
-    string email;
-    cout << "Enter email: ";
-    getline(cin, email);
-    while (!validate_email(email))
-    {
-        cout << "Invalid email. Please enter a valid email: ";
-        getline(cin, email);
-    }
-    setemail(email);
-    /////////////////// DOB /////////////////////////
-    string DOB;
-    cout << "Enter DOB (DD-MM-YYY): ";
-    getline(cin, DOB);
-    while (!validate_DOB(DOB))
-    {
-        cout << "Invalid DOB. Please enter a valid DOB: ";
-        getline(cin, DOB);
-    }
-    setDOB(DOB);
-    ////////////////// Gender //////////////////
-    int choice;
-
-    cout << "1. Male" << endl;
-    cout << "2. Female" << endl;
-    cout << "Choose Your Gender :" << endl;
-    cin >> choice;
-    while (choice != 1 && choice != 2)
-    {
-        cout << "Invalid choice. Please enter a valid choice: ";
-        cin >> choice;
-    }
-    if (choice == 1)
-    {
-        setgender('M');
-    }
-    else if (choice == 2)
-    {
-        setgender('F');
-    }
-    cout << "Sign up successful!" << endl;
-}
-
-void User::signin()
-{
-    string username;
-    cout << "Enter username: ";
-    getline(cin, username);
-    cout << "Enter password: ";
-    string password;
-    getline(cin, password);
-    cout << "Sign in successful!" << endl;
 }
