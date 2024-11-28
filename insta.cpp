@@ -37,6 +37,7 @@ void Insta::signin()
         cout << "Invalid username or password" << endl;
     }
 }
+
 string Insta::Search()
 {
     string username;
@@ -45,11 +46,16 @@ string Insta::Search()
     {
         for (int i = 0; i < user_count; i++)
         {
-            if (user[i])
+            if (user[i]->getusername() == username)
+            {
+                cout << "Username: " << user[i]->getusername() << endl;
+                cout << "Email: " << user[i]->getemail() << endl;
+                        }
         }
     }
-}
-void Insta::forgotpassword()
-{
-    string username;
+    else
+    {
+        cout << "Invalid Username" << endl;
+    }
+    return username;
 }
