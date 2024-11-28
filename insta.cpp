@@ -5,14 +5,11 @@ Insta::Insta()
     user = new User *[100];
     user_count = 0;
 }
-void Insta::signup()
+
+bool Insta::search(string username)
 {
-    cout << "Enter the following details to sign up: " << endl;
-    ///////////////////////////// Username //////////////////////////////////
-    string username;
-    cout << "Enter username: ";
-    getline(cin, username);
     bool is_user_exist = false;
+
     for (int i = 0; i < user_count; i++)
     {
         if (username == user[i]->getusername())
@@ -21,8 +18,17 @@ void Insta::signup()
             break;
         }
     }
+    return is_user_exist;
+}
+void Insta::signup()
+{
+    cout << "Enter the following details to sign up: " << endl;
+    ///////////////////////////// Username //////////////////////////////////
+    string username;
+    cout << "Enter username: ";
+    getline(cin, username);
 
-    while (!validateusername(username) && is_user_exist)
+    while (!validateusername(username) || search(username))
     {
         cout << "Username Is Already Registred!! OR Invalid Username " << endl;
         cout << "Enter username: ";
@@ -33,6 +39,7 @@ void Insta::signup()
     string email;
     cout << "Enter email: ";
     getline(cin, email);
+
     while (!validate_email(email))
     {
         cout << "Invalid email. Please enter a valid email: ";
@@ -42,6 +49,7 @@ void Insta::signup()
     string password;
     cout << "Enter password: ";
     getline(cin, password);
+
     while (!validate_strong_password(password))
     {
         cout << "Invalid password. Please enter a strong password: ";
@@ -49,8 +57,7 @@ void Insta::signup()
     }
 
     cout << "Sign up successfull!!" << endl;
-    cout
-        << "Let' Setup Your Profile" << endl;
+    cout << "Let' Setup Your Profile" << endl;
     ///////////////// First Name /////////////////////
     string first_name;
     cout << "Enter Firts Name: ";
@@ -113,6 +120,7 @@ void Insta::signin()
             break;
         }
     }
+
     if (is_valid)
     {
         cout << "Sign in successful" << endl;
@@ -148,14 +156,34 @@ void Insta::forgotpassword()
             is_valid = true;
             break;
         }
-
-        if (is_valid)
-        {
-            cout << "Password Changed Sucessfully!!" << endl;
-        }
         else
         {
             cout << "Invalid username or email" << endl;
+        }
+    }
+}
+void Insta::display()
+{
+    if (user_count == 0)
+    {
+        cout << "No users to display." << endl;
+        return;
+    }
+
+    for (int i = 0; i < user_count; i++)
+    {
+        if (user[i] != nullptr) // Ensure the pointer is valid
+        {
+            cout << "User " << i + 1 << ":" << endl;
+            cout << "Username: " << user[i]->getusername() << endl;
+            cout << "Email: " << user[i]->getemail() << endl;
+            cout << "DOB: " << user[i]->getDOB() << endl;
+            cout << "Gender: " << user[i]->getgender() << endl;
+            cout << "-----------------------" << endl;
+        }
+        else
+        {
+            cout << "User " << i + 1 << " is null." << endl;
         }
     }
 }

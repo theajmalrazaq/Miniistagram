@@ -1,8 +1,21 @@
 #include "user.h"
 #include "validations.h"
-
+User::User()
+{
+    username = "";
+    email = "";
+    password = "";
+    password = "";
+    first_name = "";
+    last_name = "";
+    DOB = "";
+    gender = '\0';
+}
 User::User(string username, string email, string password, string first_name, string last_name, string DOB, char gender)
 {
+    this->username = username;
+    this->email = email;
+    this->password = password;
     this->first_name = first_name;
     this->last_name = last_name;
     this->DOB = DOB;

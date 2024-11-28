@@ -14,7 +14,7 @@ public:
     void forgotpassword();
     // void addfriend();
     void display();
-    // void search();
+    bool search(string username);
     // void deleteaccount();
     // void updateprofile();
     // void viewprofile();
