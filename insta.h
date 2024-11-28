@@ -12,9 +12,9 @@ public:
     void signup();
     void signin();
     void forgotpassword();
-    string Search();
     // void addfriend();
-    // void display();
+    void display();
+    // void search();
     // void deleteaccount();
     // void updateprofile();
     // void viewprofile();

@@ -5,13 +5,10 @@ using namespace std;
 int main()
 {
     int choice;
-
+    Insta insta;
     do
     {
-        // Add some blank lines for spacing
         cout << "\n\n\n";
-
-        // Centered menu design
         cout << "                      +----------------------------------------------------------+\n";
         cout << "                      |                         INSTAGRAM                        |\n";
         cout << "                      +----------------------------------------------------------+\n";
@@ -23,17 +20,16 @@ int main()
         cout << "                       Enter your choice: ";
         cin >> choice;
         cin.ignore();
-
         switch (choice)
         {
         case 1:
-            cout << "\nYou selected Sign up.\n";
+            insta.signup();
             break;
         case 2:
-            cout << "\nYou selected Sign in.\n";
+            insta.signin();
             break;
         case 3:
-            cout << "\nYou selected Forgot password.\n";
+            insta.forgotpassword();
             break;
         case 4:
             cout << "\nExiting...\n";
