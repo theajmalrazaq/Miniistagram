@@ -32,13 +32,16 @@ int main()
             insta.forgotpassword();
             break;
         case 4:
+            insta.display();
+            break;
+        case 5:
             cout << "\nExiting...\n";
             break;
         default:
             cout << "\nInvalid choice, please try again.\n";
             break;
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
