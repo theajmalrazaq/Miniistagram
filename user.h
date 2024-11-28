@@ -22,7 +22,7 @@ public:
     string getemail();
     char getgender();
     string getDOB();
-    void login();
+    void signin();
     void forgotpassword();
     void signup();
 };

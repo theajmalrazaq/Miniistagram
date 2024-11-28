@@ -23,6 +23,28 @@ void User::setgender(char gender)
 {
     this->gender = gender;
 }
+string User::getusername()
+{
+    return username;
+}
+string User::getpassword()
+{
+    return password;
+}
+string User::getemail()
+{
+    return email;
+}
+string User::getDOB()
+{
+    return DOB;
+}
+
+char User::getgender()
+{
+    return gender;
+}
+
 void User::signup()
 {
     cout << "Enter the following details to sign up: " << endl;
@@ -58,7 +80,7 @@ void User::signup()
     setemail(email);
     /////////////////// DOB /////////////////////////
     string DOB;
-    cout << "Enter DOB: ";
+    cout << "Enter DOB (DD-MM-YYY): ";
     getline(cin, DOB);
     while (!validate_DOB(DOB))
     {
@@ -87,4 +109,15 @@ void User::signup()
         setgender('F');
     }
     cout << "Sign up successful!" << endl;
+}
+
+void User::signin()
+{
+    string username;
+    cout << "Enter username: ";
+    getline(cin, username);
+    cout << "Enter password: ";
+    string password;
+    getline(cin, password);
+    cout << "Sign in successful!" << endl;
 }
