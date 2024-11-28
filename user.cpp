@@ -1,6 +1,7 @@
 #include "user.h"
 #include "validations.h"
 
+User::User() {};
 void User::setusername(string username)
 {
     this->username = username;
@@ -24,12 +25,12 @@ void User::setgender(char gender)
 }
 void User::signup()
 {
-    validations v;
+    cout << "Enter the following details to sign up: " << endl;
     ///////////////////////////// Username //////////////////////////////////
     string username;
     cout << "Enter username: ";
     getline(cin, username);
-    while (!v.validateusername(username))
+    while (!validateusername(username))
     {
         cout << "Invalid username. Please enter a valid username: ";
         getline(cin, username);
@@ -39,7 +40,7 @@ void User::signup()
     string password;
     cout << "Enter password: ";
     getline(cin, password);
-    while (!v.validate_strong_password(password))
+    while (!validate_strong_password(password))
     {
         cout << "Invalid password. Please enter a strong password: ";
         getline(cin, password);
@@ -49,7 +50,7 @@ void User::signup()
     string email;
     cout << "Enter email: ";
     getline(cin, email);
-    while (!v.validate_email(email))
+    while (!validate_email(email))
     {
         cout << "Invalid email. Please enter a valid email: ";
         getline(cin, email);
@@ -59,11 +60,31 @@ void User::signup()
     string DOB;
     cout << "Enter DOB: ";
     getline(cin, DOB);
-    while (!v.validate_DOB(DOB))
+    while (!validate_DOB(DOB))
     {
         cout << "Invalid DOB. Please enter a valid DOB: ";
         getline(cin, DOB);
     }
     setDOB(DOB);
-    //////////////////
+    ////////////////// Gender //////////////////
+    int choice;
+
+    cout << "1. Male" << endl;
+    cout << "2. Female" << endl;
+    cout << "Choose Your Gender :" << endl;
+    cin >> choice;
+    while (choice != 1 && choice != 2)
+    {
+        cout << "Invalid choice. Please enter a valid choice: ";
+        cin >> choice;
+    }
+    if (choice == 1)
+    {
+        setgender('M');
+    }
+    else if (choice == 2)
+    {
+        setgender('F');
+    }
+    cout << "Sign up successful!" << endl;
 }
