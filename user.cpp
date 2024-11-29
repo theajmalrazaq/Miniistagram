@@ -20,6 +20,11 @@ User::User(string username, string email, string password, string first_name, st
     this->DOB = DOB;
     this->gender = gender;
 }
+void User::friend_requests(string sender, string receiver)
+{
+    friend_request = new FriendRequest(sender, receiver);
+}
+
 void User::setpassword(string password)
 {
     this->password = password;
@@ -37,6 +42,19 @@ void User::setgender(char gender)
 {
     this->gender = gender;
 }
+void User::setusername(string username)
+{
+    this->username = username;
+}
+string User::getfirst_name()
+{
+    return this->first_name;
+}
+string User::getlast_name()
+{
+    return this->last_name;
+}
+
 string User::getusername()
 {
     return this->username;

@@ -12,10 +12,11 @@ public:
     void signup();
     void signin();
     void forgotpassword();
-    // void addfriend();
     void display();
     bool search(string username);
+    void addfriend();
+    void home(string username);
     // void deleteaccount();
     // void updateprofile();
-    // void viewprofile();
+    void viewprofile(string username);
 };

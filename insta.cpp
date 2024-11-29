@@ -122,14 +122,14 @@ void Insta::signin()
     }
     if (is_valid)
     {
-        cout << "Sign in successful" << endl;
+        home(username);
     }
     else
     {
         cout << "Invalid username or password" << endl;
     }
 }
-
+/////////////// Forget Password ///////////////
 void Insta::forgotpassword()
 {
     string username;
@@ -161,6 +161,88 @@ void Insta::forgotpassword()
         }
     }
 }
+
+///////////////// view profile ///////////////////////
+void Insta::viewprofile(string username)
+{
+    int choice;
+    bool is_valid = false;
+    for (int i = 0; i < user_count; i++)
+    {
+        if (user[i]->getusername() == username)
+        {
+            cout << "+-------------------------------------------------+" << endl;
+            cout << "First Name: " << user[i]->getfirst_name() << endl;
+            cout << "Last Name: " << user[i]->getlast_name() << endl;
+            cout << "Username: " << user[i]->getusername() << endl;
+            cout << "+-------------------------------------------------+" << endl;
+            cout << "1. Add Frined" << endl;
+            cout << "2. Back" << endl;
+            cout << "Enter Your Choice: ";
+            cin >> choice;
+        }
+        else
+        {
+            cout << "User Not Found!!" << endl;
+        }
+    }
+}
+//////////// show home after login //////////////////
+void Insta::home(string username)
+{
+    int choice;
+    cout << "welcome " << username << endl;
+    cout << "1 .Serach User" << endl;
+    cout << "Enter Choice:";
+    cin >> choice;
+    cin.ignore();
+    if (choice == 1)
+    {
+        string searchusername;
+        cout << "Enter username: ";
+        getline(cin, searchusername);
+        viewprofile(searchusername);
+    }
+}
+
+void Insta::addfriend()
+{
+    string sender;
+    string receiver;
+    cout << "Enter sender username: ";
+    getline(cin, sender);
+    cout << "Enter receiver username: ";
+    getline(cin, receiver);
+    bool is_sender = false;
+    bool is_receiver = false;
+    for (int i = 0; i < user_count; i++)
+    {
+        if (user[i]->getusername() == sender)
+        {
+            is_sender = true;
+        }
+        if (user[i]->getusername() == receiver)
+        {
+            is_receiver = true;
+        }
+    }
+    if (is_sender && is_receiver)
+    {
+        for (int i = 0; i < user_count; i++)
+        {
+            if (user[i]->getusername() == receiver)
+            {
+                user[i]->friend_requests(sender, receiver);
+            }
+        }
+        cout << "Friend request sent" << endl;
+    }
+    else
+    {
+        cout << "Invalid sender or receiver" << endl;
+    }
+}
+
 void Insta::display()
 {
     if (user_count == 0)

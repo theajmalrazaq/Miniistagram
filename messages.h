@@ -6,21 +6,23 @@ using namespace std;
 
 class MessageStack; // Forward declaration
 
-void reversePrint(MessageStack*);
+void reversePrint(MessageStack *);
 
-struct MessageNode {
-    MessageNode* next;
-    MessageNode* prev;
+struct MessageNode
+{
+    MessageNode *next;
+    MessageNode *prev;
     string message;
 
     MessageNode(string message);
     string getMessage() const;
 };
 
-class MessageStack {
+class MessageStack
+{
 private:
     string recipient_name;
-    MessageNode* top;
+    MessageNode *top;
 
 public:
     MessageStack();
@@ -28,31 +30,34 @@ public:
 
     string getName() const;
     void setName(string name);
-    MessageNode* getTop() const;
+    MessageNode *getTop() const;
     bool add_message();
 };
 
-struct ChatNode {
-    ChatNode* next;
-    ChatNode* prev;
-    MessageStack* message_stack;
+struct ChatNode
+{
+    ChatNode *next;
+    ChatNode *prev;
+    MessageStack *message_stack;
 
     ChatNode(string username);
 };
 
-class ChatStack {
+class ChatStack
+{
 private:
-    ChatNode* top;
+    ChatNode *top;
 
 public:
     ChatStack();
     bool newChat(string username);
-    ChatNode* getTop() const;
+    ChatNode *getTop() const;
 };
 
-class Messages {
+class Messages
+{
 private:
-    ChatStack* chat;
+    ChatStack *chat;
 
 public:
     Messages();
