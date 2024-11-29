@@ -5,7 +5,6 @@ User::User()
     username = "";
     email = "";
     password = "";
-    password = "";
     first_name = "";
     last_name = "";
     DOB = "";
@@ -40,11 +39,11 @@ void User::setgender(char gender)
 }
 string User::getusername()
 {
-    return username;
+    return this->username;
 }
 string User::getpassword()
 {
-    return password;
+    return this->password;
 }
 string User::getemail()
 {

@@ -5,7 +5,6 @@ Insta::Insta()
     user = new User *[100];
     user_count = 0;
 }
-
 bool Insta::search(string username)
 {
     bool is_user_exist = false;
@@ -94,15 +93,16 @@ void Insta::signup()
         gender = 'M';
     }
     else if (choice == 2)
-
     {
         gender = 'F';
     }
-    user[user_count] = new User(username, password, email, first_name, last_name, DOB, gender);
+    cin.ignore();
+    user[user_count] = new User(username, email, password, first_name, last_name, DOB, gender);
     user_count++;
     cout << "Yahoooo You Made it!! " << endl;
     cout << "Welcome To Instagram" << endl;
 }
+
 void Insta::signin()
 {
     string username;
@@ -120,7 +120,6 @@ void Insta::signin()
             break;
         }
     }
-
     if (is_valid)
     {
         cout << "Sign in successful" << endl;

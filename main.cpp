@@ -26,6 +26,7 @@ int main()
             insta.signup();
             break;
         case 2:
+            cin.ignore();
             insta.signin();
             break;
         case 3:
