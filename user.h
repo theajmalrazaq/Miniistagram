@@ -8,7 +8,7 @@ private:
     string username;
     string password;
     string email;
-    FriendRequest *friend_request;
+    FriendList* friend_list;
     string first_name;
     string last_name;
     char gender;
