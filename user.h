@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "friendrequest.h"
+#include "friendList.h"
 using namespace std;
 class User
 {

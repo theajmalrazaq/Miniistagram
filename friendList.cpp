@@ -1,4 +1,4 @@
-#include "friendLish.h"
+#include "friendList.h"
 
 FriendNode::FriendNode(string name, bool connect)
 {
