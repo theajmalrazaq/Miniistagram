@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "friendList.h"
+#include "requestList.h"
 using namespace std;
 class User
 {
@@ -9,6 +10,7 @@ private:
     string password;
     string email;
     FriendList* friend_list;
+    RequestList* request_list;
     string first_name;
     string last_name;
     char gender;
