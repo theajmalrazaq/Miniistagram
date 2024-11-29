@@ -224,43 +224,43 @@ void Insta::home(string username)
 }
 
 ////////////////// Add Friend /////////////////
-void Insta::addfriend()
-{
-    string sender;
-    string receiver;
-    cout << "Enter sender username: ";
-    getline(cin, sender);
-    cout << "Enter receiver username: ";
-    getline(cin, receiver);
-    bool is_sender = false;
-    bool is_receiver = false;
-    for (int i = 0; i < user_count; i++)
-    {
-        if (user[i]->getusername() == sender)
-        {
-            is_sender = true;
-        }
-        if (user[i]->getusername() == receiver)
-        {
-            is_receiver = true;
-        }
-    }
-    if (is_sender && is_receiver)
-    {
-        for (int i = 0; i < user_count; i++)
-        {
-            if (user[i]->getusername() == receiver)
-            {
-                user[i]->friend_requests(sender, receiver);
-            }
-        }
-        cout << "Friend request sent" << endl;
-    }
-    else
-    {
-        cout << "Invalid sender or receiver" << endl;
-    }
-}
+// void Insta::addfriend()
+// {
+//     string sender;
+//     string receiver;
+//     cout << "Enter sender username: ";
+//     getline(cin, sender);
+//     cout << "Enter receiver username: ";
+//     getline(cin, receiver);
+//     bool is_sender = false;
+//     bool is_receiver = false;
+//     for (int i = 0; i < user_count; i++)
+//     {
+//         if (user[i]->getusername() == sender)
+//         {
+//             is_sender = true;
+//         }
+//         if (user[i]->getusername() == receiver)
+//         {
+//             is_receiver = true;
+//         }
+//     }
+//     if (is_sender && is_receiver)
+//     {
+//         for (int i = 0; i < user_count; i++)
+//         {
+//             if (user[i]->getusername() == receiver)
+//             {
+//                 user[i]->friend_requests(sender, receiver);
+//             }
+//         }
+//         cout << "Friend request sent" << endl;
+//     }
+//     else
+//     {
+//         cout << "Invalid sender or receiver" << endl;
+//     }
+// }
 /////// Signout /////
 void Insta::signout()
 {

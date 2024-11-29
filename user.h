@@ -27,8 +27,6 @@ public:
     void setlast_sign_in(string);
     void setgender(char);
     void setDOB(string);
-    void friend_requests(string sender, string receiver);
-
     ////// Getters ///////
     string getfirst_name();
     string getlast_name();
