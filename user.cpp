@@ -24,7 +24,6 @@ void User::friend_requests(string sender, string receiver)
 {
     friend_request = new FriendRequest(sender, receiver);
 }
-
 void User::setpassword(string password)
 {
     this->password = password;
@@ -33,7 +32,18 @@ void User::setemail(string email)
 {
     this->email = email;
 }
-
+void User::setfirst_name(string first_name)
+{
+    this->first_name = first_name;
+}
+void User::setlast_name(string last_name)
+{
+    this->last_name = last_name;
+}
+void User::setlast_sign_in(string last_sign_in)
+{
+    this->last_singn_in = last_sign_in;
+}
 void User::setDOB(string DOB)
 {
     this->DOB = DOB;
@@ -71,7 +81,10 @@ string User::getDOB()
 {
     return DOB;
 }
-
+string User::getlast_sign_in()
+{
+    return last_singn_in;
+}
 char User::getgender()
 {
     return gender;

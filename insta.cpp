@@ -1,24 +1,22 @@
 #include "insta.h"
 #include "validations.h"
+
+////////////////// Constructor /////////////////
 Insta::Insta()
 {
+    bst = new BST();
     user = new User *[100];
     user_count = 0;
 }
+
+//////// Search User //////////
 bool Insta::search(string username)
 {
-    bool is_user_exist = false;
-
-    for (int i = 0; i < user_count; i++)
-    {
-        if (username == user[i]->getusername())
-        {
-            is_user_exist = true;
-            break;
-        }
-    }
-    return is_user_exist;
+    BSTNode *userNode = bst->search(username);
+    return userNode != nullptr;
 }
+
+////////////////// Sign Up /////////////////
 void Insta::signup()
 {
     cout << "Enter the following details to sign up: " << endl;
@@ -59,7 +57,7 @@ void Insta::signup()
     cout << "Let' Setup Your Profile" << endl;
     ///////////////// First Name /////////////////////
     string first_name;
-    cout << "Enter Firts Name: ";
+    cout << "Enter First Name: ";
     getline(cin, first_name);
     ///////////////// Last Name /////////////////////
     string last_name;
@@ -97,12 +95,41 @@ void Insta::signup()
         gender = 'F';
     }
     cin.ignore();
-    user[user_count] = new User(username, email, password, first_name, last_name, DOB, gender);
-    user_count++;
+
+    User *newUser = new User(username, email, password, first_name, last_name, DOB, gender);
+    bst->insert(newUser); // Add user to the BST
+
     cout << "Yahoooo You Made it!! " << endl;
     cout << "Welcome To Instagram" << endl;
 }
 
+/////////////// View Profile //////////////////////
+void Insta::viewprofile(string username)
+{
+    int choice;
+
+    // Search for the user in the BST
+    BSTNode *userNode = bst->search(username);
+
+    if (userNode != nullptr)
+    {
+        // User found
+        cout << "+----------------------- User Profile--------------------------+" << endl;
+        cout << "First Name: " << userNode->user->getfirst_name() << endl;
+        cout << "Last Name: " << userNode->user->getlast_name() << endl;
+        cout << "Username: " << userNode->user->getusername() << endl;
+        cout << "+-------------------------------------------------+" << endl;
+        cout << "1. Add Friend" << endl;
+        cout << "2. Back" << endl;
+        cout << "Enter Your Choice: ";
+        cin >> choice;
+    }
+    else
+    {
+        cout << "User Not Found!!" << endl;
+    }
+}
+///////////////////// sign in /////////////////////
 void Insta::signin()
 {
     string username;
@@ -112,14 +139,17 @@ void Insta::signin()
     cout << "Enter password: ";
     getline(cin, password);
     bool is_valid = false;
-    for (int i = 0; i < user_count; i++)
+
+    BSTNode *userNode = bst->search(username);
+
+    if (userNode != nullptr && userNode->user->getpassword() == password)
     {
-        if (user[i]->getusername() == username && user[i]->getpassword() == password)
-        {
-            is_valid = true;
-            break;
-        }
+
+        time_t now = time(0);
+        userNode->user->setlast_sign_in(ctime(&now));
+        is_valid = true;
     }
+
     if (is_valid)
     {
         home(username);
@@ -129,6 +159,7 @@ void Insta::signin()
         cout << "Invalid username or password" << endl;
     }
 }
+
 /////////////// Forget Password ///////////////
 void Insta::forgotpassword()
 {
@@ -138,61 +169,40 @@ void Insta::forgotpassword()
     getline(cin, username);
     cout << "Enter email: ";
     getline(cin, email);
+
     bool is_valid = false;
-    for (int i = 0; i < user_count; i++)
+    BSTNode *userNode = bst->search(username);
+    if (userNode != nullptr && userNode->user->getemail() == email)
     {
-        if (user[i]->getusername() == username && user[i]->getemail() == email)
+        string password;
+        cout << "Enter new password: ";
+        getline(cin, password);
+        while (!validate_strong_password(password) || password == userNode->user->getpassword())
         {
-            string password;
-            cout << "Enter password: ";
+            cout << "Please enter a new and strong password: ";
             getline(cin, password);
-            while (!validate_strong_password(password) || password == user[i]->getpassword())
-            {
-                cout << "Please enter a new and strong password: ";
-                getline(cin, password);
-            }
-            user[i]->setpassword(password);
-            is_valid = true;
-            break;
         }
-        else
-        {
-            cout << "Invalid username or email" << endl;
-        }
+        userNode->user->setpassword(password);
+        is_valid = true;
+    }
+
+    if (is_valid)
+    {
+        cout << "Password updated successfully." << endl;
+    }
+    else
+    {
+        cout << "Invalid username or email." << endl;
     }
 }
 
-///////////////// view profile ///////////////////////
-void Insta::viewprofile(string username)
-{
-    int choice;
-    bool is_valid = false;
-    for (int i = 0; i < user_count; i++)
-    {
-        if (user[i]->getusername() == username)
-        {
-            cout << "+-------------------------------------------------+" << endl;
-            cout << "First Name: " << user[i]->getfirst_name() << endl;
-            cout << "Last Name: " << user[i]->getlast_name() << endl;
-            cout << "Username: " << user[i]->getusername() << endl;
-            cout << "+-------------------------------------------------+" << endl;
-            cout << "1. Add Frined" << endl;
-            cout << "2. Back" << endl;
-            cout << "Enter Your Choice: ";
-            cin >> choice;
-        }
-        else
-        {
-            cout << "User Not Found!!" << endl;
-        }
-    }
-}
 //////////// show home after login //////////////////
 void Insta::home(string username)
 {
     int choice;
     cout << "welcome " << username << endl;
     cout << "1 .Serach User" << endl;
+    cout << "2. Sign Out" << endl;
     cout << "Enter Choice:";
     cin >> choice;
     cin.ignore();
@@ -203,8 +213,17 @@ void Insta::home(string username)
         getline(cin, searchusername);
         viewprofile(searchusername);
     }
+    else if (choice == 2)
+    {
+        signout();
+    }
+    else
+    {
+        cout << "Invalid choice" << endl;
+    }
 }
 
+////////////////// Add Friend /////////////////
 void Insta::addfriend()
 {
     string sender;
@@ -242,29 +261,80 @@ void Insta::addfriend()
         cout << "Invalid sender or receiver" << endl;
     }
 }
+/////// Signout /////
+void Insta::signout()
+{
+    cout << "You are signed out." << endl;
+    showmenu();
+}
+
+void Insta::showmenu()
+{
+    int choice;
+    do
+    {
+        cout << "\n\n\n";
+        cout << "                      +----------------------------------------------------------+\n";
+        cout << "                      |                         INSTAGRAM                        |\n";
+        cout << "                      +----------------------------------------------------------+\n";
+        cout << "                      |                         1. Sign up                       |\n";
+        cout << "                      |                         2. Sign in                       |\n";
+        cout << "                      |                         3. Forgot password               |\n";
+        cout << "                      |                         4.Display                          |\n";
+        cout << "                      |                         5. Exit                          |\n";
+        cout << "                      +----------------------------------------------------------+\n";
+        cout << "                       Enter your choice: ";
+        cin >> choice;
+        cin.ignore();
+        switch (choice)
+        {
+        case 1:
+            signup();
+            break;
+        case 2:
+            signin();
+            break;
+        case 3:
+            forgotpassword();
+            break;
+        case 4:
+            display();
+            break;
+        case 5:
+            cout << "\nExiting...\n";
+            break;
+        default:
+            cout << "\nInvalid choice, please try again.\n";
+            break;
+        }
+    } while (choice != 6);
+}
+
+////////////////// Display /////////////////
+void Insta::inorderTraversal(BSTNode *node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+    inorderTraversal(node->left);
+    cout << "Username: " << node->user->getusername() << endl;
+    cout << "Email: " << node->user->getemail() << endl;
+    cout << "DOB: " << node->user->getDOB() << endl;
+    cout << "Gender: " << node->user->getgender() << endl;
+    cout << "First Name: " << node->user->getfirst_name() << endl;
+    cout << "Last Name: " << node->user->getlast_name() << endl;
+    cout << "Last Sign In: " << node->user->getlast_sign_in() << endl;
+    cout << "-----------------------" << endl;
+    inorderTraversal(node->right);
+}
 
 void Insta::display()
 {
-    if (user_count == 0)
+    if (bst->getRoot() == nullptr)
     {
         cout << "No users to display." << endl;
         return;
     }
-
-    for (int i = 0; i < user_count; i++)
-    {
-        if (user[i] != nullptr) // Ensure the pointer is valid
-        {
-            cout << "User " << i + 1 << ":" << endl;
-            cout << "Username: " << user[i]->getusername() << endl;
-            cout << "Email: " << user[i]->getemail() << endl;
-            cout << "DOB: " << user[i]->getDOB() << endl;
-            cout << "Gender: " << user[i]->getgender() << endl;
-            cout << "-----------------------" << endl;
-        }
-        else
-        {
-            cout << "User " << i + 1 << " is null." << endl;
-        }
-    }
+    inorderTraversal(bst->getRoot());
 }

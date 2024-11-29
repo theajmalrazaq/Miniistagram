@@ -1,10 +1,12 @@
 #include <iostream>
 using namespace std;
-#include "user.h"
+#include "bst.h"
+#include <ctime>
 class Insta
 {
 private:
     User **user;
+    BST *bst;
     int user_count;
 
 public:
@@ -19,4 +21,7 @@ public:
     // void deleteaccount();
     // void updateprofile();
     void viewprofile(string username);
+    void signout();
+    void showmenu();
+    void inorderTraversal(BSTNode *node);
 };
