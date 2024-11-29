@@ -16,6 +16,6 @@ private:
     FriendNode* top;
 public:
     FriendList();
-
+    FriendNode* getTop() const;
     void addFriend(string friend_name);
 };

@@ -20,6 +20,10 @@ public:
 
     void addRequest(string sender);
 
+    RequestNode* getFront()const;
+    RequestNode* getBack()const;
+
+
     void decideRequest(){
         string decision;
         cout<<"If you want to accept the request type \"ACCEPT\" to decline type \"REJECT\": \n";

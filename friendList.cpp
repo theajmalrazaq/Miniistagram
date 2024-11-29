@@ -25,3 +25,8 @@ void FriendList::addFriend(string friend_name)
     top->prev = current;
     current->next = top;
 }
+
+FriendNode *FriendList::getTop() const
+{
+    return top;
+}

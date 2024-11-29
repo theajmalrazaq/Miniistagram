@@ -5,7 +5,7 @@
 Insta::Insta()
 {
     bst = new BST();
-    user = new User *[100];
+    user = new User[100];
     user_count = 0;
 }
 
@@ -98,7 +98,8 @@ void Insta::signup()
 
     User *newUser = new User(username, email, password, first_name, last_name, DOB, gender);
     bst->insert(newUser); // Add user to the BST
-
+    user[user_count] = *newUser;
+    user_count++;
     cout << "Yahoooo You Made it!! " << endl;
     cout << "Welcome To Instagram" << endl;
 }
@@ -201,7 +202,7 @@ void Insta::home(string username)
 {
     int choice;
     cout << "welcome " << username << endl;
-    cout << "1 .Serach User" << endl;
+    cout << "1 .Search User" << endl;
     cout << "2. Sign Out" << endl;
     cout << "Enter Choice:";
     cin >> choice;
@@ -224,43 +225,43 @@ void Insta::home(string username)
 }
 
 ////////////////// Add Friend /////////////////
-// void Insta::addfriend()
-// {
-//     string sender;
-//     string receiver;
-//     cout << "Enter sender username: ";
-//     getline(cin, sender);
-//     cout << "Enter receiver username: ";
-//     getline(cin, receiver);
-//     bool is_sender = false;
-//     bool is_receiver = false;
-//     for (int i = 0; i < user_count; i++)
-//     {
-//         if (user[i]->getusername() == sender)
-//         {
-//             is_sender = true;
-//         }
-//         if (user[i]->getusername() == receiver)
-//         {
-//             is_receiver = true;
-//         }
-//     }
-//     if (is_sender && is_receiver)
-//     {
-//         for (int i = 0; i < user_count; i++)
-//         {
-//             if (user[i]->getusername() == receiver)
-//             {
-//                 user[i]->friend_requests(sender, receiver);
-//             }
-//         }
-//         cout << "Friend request sent" << endl;
-//     }
-//     else
-//     {
-//         cout << "Invalid sender or receiver" << endl;
-//     }
-// }
+void Insta::addfriend()
+{
+    string sender;
+    string receiver;
+    cout << "Enter sender username: ";
+    getline(cin, sender);
+    cout << "Enter receiver username: ";
+    getline(cin, receiver);
+    bool is_sender = false;
+    bool is_receiver = false;
+    for (int i = 0; i < user_count; i++)
+    {
+        if (user[i].getusername() == sender)
+        {
+            is_sender = true;
+        }
+        if (user[i].getusername() == receiver)
+        {
+            is_receiver = true;
+        }
+    }
+    if (is_sender && is_receiver)
+    {
+        for (int i = 0; i < user_count; i++)
+        {
+            if (user[i].getusername() == receiver)
+            {
+                // user[i].friend_requests(sender, receiver);
+            }
+        }
+        cout << "Friend request sent" << endl;
+    }
+    else
+    {
+        cout << "Invalid sender or receiver" << endl;
+    }
+}
 /////// Signout /////
 void Insta::signout()
 {

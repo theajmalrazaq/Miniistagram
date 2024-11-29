@@ -29,3 +29,11 @@ void RequestList::addRequest(string sender){
         newRequet->prev = back;
         back = newRequet;
     }
+
+RequestNode* RequestList::getFront()const{
+    return front;
+}
+
+RequestNode* RequestList::getBack()const{
+    return back;
+}
