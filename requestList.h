@@ -7,17 +7,8 @@ struct RequestNode{
     RequestNode* prev;
     string sender;
     bool is_accepted;
-    RequestNode(){
-        next = prev = nullptr;
-        is_accepted =false;
-        sender = "";
-    }
-
-    RequestNode(string from){
-        next = prev = nullptr;
-        is_accepted =false;
-        sender = from;
-    }
+    RequestNode();
+    RequestNode(string from);
 };
 
 class RequestList{
@@ -25,20 +16,9 @@ private:
     RequestNode* front;
     RequestNode* back;
 public:
-    RequestList(){
-        front = back = nullptr;
-    }
+    RequestList();
 
-    void addRequest(string sender){
-        RequestNode* newRequet = new RequestNode(sender);
-        if(front == nullptr){
-            back = front = newRequet;
-        }
-
-        back->next = newRequet;
-        newRequet->prev = back;
-        back = newRequet;
-    }
+    void addRequest(string sender);
 
     void decideRequest(){
         string decision;

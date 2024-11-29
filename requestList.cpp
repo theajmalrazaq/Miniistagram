@@ -13,3 +13,19 @@ RequestNode::RequestNode(string from)
     is_accepted = false;
     sender = from;
 }
+
+RequestList::RequestList()
+{
+    front = back = nullptr;
+}
+
+void RequestList::addRequest(string sender){
+        RequestNode* newRequet = new RequestNode(sender);
+        if(front == nullptr){
+            back = front = newRequet;
+        }
+
+        back->next = newRequet;
+        newRequet->prev = back;
+        back = newRequet;
+    }
