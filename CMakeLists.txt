@@ -11,4 +11,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color=always -g")
 
 # Add Executable
-add_executable(Miniistagram main.cpp user.cpp validations.cpp insta.cpp)
+add_executable(Miniistagram main.cpp user.cpp validations.cpp insta.cpp friendrequest.cpp)
