@@ -13,7 +13,6 @@ private:
     string last_name;
     char gender;
     string DOB;
-
 public:
     User();
     User(string username, string email, string password, string first_name, string last_name, string DOB, char gender);
@@ -27,7 +26,6 @@ public:
     string getusername();
     string getpassword();
     string getemail();
-    void friend_requests(string sender, string receiver);
     char getgender();
     string getDOB();
 };
