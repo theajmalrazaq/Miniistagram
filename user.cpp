@@ -22,7 +22,6 @@ User::User(string username, string email, string password, string first_name, st
     this->DOB = DOB;
     this->gender = gender;
     friend_list = new FriendList();
-    post_stack = PostStack();
 }
 void User::setpassword(string password)
 {
