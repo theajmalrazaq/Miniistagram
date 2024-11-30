@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "friendList.h"
+#include "post.h"
 using namespace std;
 class User
 {
@@ -8,12 +9,14 @@ private:
     string username;
     string password;
     string email;
-    FriendList* friend_list;
+    FriendList *friend_list;
+    PostStack post_stack;
     string first_name;
     string last_name;
     char gender;
     string last_singn_in;
     string DOB;
+
 public:
     User();
     User(string username, string email, string password, string first_name, string last_name, string DOB, char gender);
@@ -27,6 +30,8 @@ public:
     void setlast_sign_in(string);
     void setgender(char);
     void setDOB(string);
+    void newPost(string, string, string);
+    void getLatestPost();
     ////// Getters ///////
     string getfirst_name();
     string getlast_name();

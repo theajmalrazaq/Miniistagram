@@ -9,7 +9,8 @@ User::User()
     last_name = "";
     DOB = "";
     gender = '\0';
-    friend_list =  new FriendList();
+    friend_list = new FriendList();
+    post_stack = PostStack();
 }
 User::User(string username, string email, string password, string first_name, string last_name, string DOB, char gender)
 {
@@ -20,7 +21,7 @@ User::User(string username, string email, string password, string first_name, st
     this->last_name = last_name;
     this->DOB = DOB;
     this->gender = gender;
-    friend_list =  new FriendList();
+    friend_list = new FriendList();
 }
 void User::setpassword(string password)
 {
@@ -86,4 +87,13 @@ string User::getlast_sign_in()
 char User::getgender()
 {
     return gender;
+}
+
+void User::newPost(string username, string post, string date)
+{
+    post_stack.newPost(username, post, date);
+}
+void User::getLatestPost()
+{
+    post_stack.peek();
 }

@@ -5,7 +5,7 @@ using namespace std;
 class Insta
 {
 private:
-    User **user;
+    User *user;
     BST *bst;
     int user_count;
 

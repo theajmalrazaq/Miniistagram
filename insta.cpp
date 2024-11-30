@@ -5,7 +5,7 @@
 Insta::Insta()
 {
     bst = new BST();
-    user = new User *[100];
+    user = new User[100];
     user_count = 0;
 }
 
@@ -98,7 +98,8 @@ void Insta::signup()
 
     User *newUser = new User(username, email, password, first_name, last_name, DOB, gender);
     bst->insert(newUser); // Add user to the BST
-
+    user[user_count] = *newUser;
+    user_count++;
     cout << "Yahoooo You Made it!! " << endl;
     cout << "Welcome To Instagram" << endl;
 }
@@ -130,6 +131,7 @@ void Insta::viewprofile(string username)
     }
 }
 ///////////////////// sign in /////////////////////
+BSTNode *activeuser;
 void Insta::signin()
 {
     string username;
@@ -144,7 +146,7 @@ void Insta::signin()
 
     if (userNode != nullptr && userNode->user->getpassword() == password)
     {
-
+        activeuser = userNode;
         time_t now = time(0);
         userNode->user->setlast_sign_in(ctime(&now));
         is_valid = true;
@@ -200,9 +202,13 @@ void Insta::forgotpassword()
 void Insta::home(string username)
 {
     int choice;
+    string post;
+    string date;
     cout << "welcome " << username << endl;
     cout << "1 .Serach User" << endl;
     cout << "2. Sign Out" << endl;
+    cout << "3. New Post" << endl;
+    cout << "4. Show Recent Post" << endl;
     cout << "Enter Choice:";
     cin >> choice;
     cin.ignore();
@@ -216,6 +222,19 @@ void Insta::home(string username)
     else if (choice == 2)
     {
         signout();
+    }
+    else if (choice == 3)
+    {
+        cout << "Enter Post:";
+        getline(cin, post);
+        time_t now = time(0);
+        string posttime = ctime(&now);
+        activeuser->user->newPost(username, post, posttime);
+        home(username);
+    }
+    else if (choice == 4)
+    {
+        activeuser->user->getLatestPost();
     }
     else
     {
