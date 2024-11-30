@@ -12,6 +12,7 @@ private:
     string password;
     string email;
     FriendList *friend_list;
+    PostStack post_stack;
     string first_name;
     string last_name;
     char gender;
