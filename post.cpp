@@ -29,12 +29,12 @@ void PostNode::setNext(PostNode *next)
 {
     this->next = next;
 }
-
+/////// Constuctor Implemenattaion /////////////////////////
 PostStack::PostStack()
 {
     top = nullptr;
 }
-
+///////// Add New post  /////////////////////
 void PostStack::newPost(string name, string post, string date)
 {
     PostNode *newPost = new PostNode(name, post, date);
@@ -51,8 +51,7 @@ void PostStack::newPost(string name, string post, string date)
 
     cout << "Post added successfully!" << endl;
 }
-
-// Function to peek at the top post without removing it
+//////// Show lastest Post /////////////////
 void PostStack::peek() const
 {
     if (top == nullptr)
@@ -61,14 +60,13 @@ void PostStack::peek() const
         return;
     }
 
-    // Display the top post
     cout << "Top Post: " << endl;
     cout << "Username: " << top->getUsername() << endl;
     cout << "Post: " << top->getPost() << endl;
     cout << "Date: " << top->getDate() << endl;
 }
 
-// Destructor to clean up memory by deleting all nodes
+/////////////// Destructor implementation ////////////////////////
 PostStack::~PostStack()
 {
     while (top != nullptr)

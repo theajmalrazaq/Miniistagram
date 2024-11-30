@@ -7,37 +7,34 @@ private:
     string username;
     string post;
     string date;
-    PostNode *next; // Pointer to the next post in the stack
+    PostNode *next;
 
 public:
-    // Constructor to initialize the PostNode
+    ////// Constructor /////////
     PostNode(string username, string post, string date);
 
-    // Getter methods
+    /////////// Getters/////////////
     string getUsername() const;
     string getPost() const;
     string getDate() const;
     PostNode *getNext() const;
 
-    // Setter method for 'next'
+    ////////////// Setters/////////////////
     void setNext(PostNode *next);
 };
 
 class PostStack
 {
 private:
-    PostNode *top; // Pointer to the top of the stack
+    PostNode *top;
 
 public:
-    // Constructor for initializing an empty stack
+    /////////////// Constructor //////////////
     PostStack();
 
-    // Function to add a new post
     void newPost(string, string, string);
-
-    // Function to display the top post (peek)
     void peek() const;
 
-    // Destructor to clean up the stack
+    /////////////// Destructor //////////////////
     ~PostStack();
 };

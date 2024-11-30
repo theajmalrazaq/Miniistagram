@@ -93,6 +93,7 @@ void User::newPost(string username, string post, string date)
 {
     post_stack.newPost(username, post, date);
 }
+
 void User::getLatestPost()
 {
     post_stack.peek();
