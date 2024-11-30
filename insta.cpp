@@ -131,6 +131,7 @@ void Insta::viewprofile(string username)
     }
 }
 ///////////////////// sign in /////////////////////
+BSTNode *activeuser;
 void Insta::signin()
 {
     string username;
@@ -145,7 +146,7 @@ void Insta::signin()
 
     if (userNode != nullptr && userNode->user->getpassword() == password)
     {
-
+        activeuser = userNode;
         time_t now = time(0);
         userNode->user->setlast_sign_in(ctime(&now));
         is_valid = true;
@@ -201,9 +202,13 @@ void Insta::forgotpassword()
 void Insta::home(string username)
 {
     int choice;
+    string post;
+    string date;
     cout << "welcome " << username << endl;
     cout << "1 .Search User" << endl;
     cout << "2. Sign Out" << endl;
+    cout << "3. New Post" << endl;
+    cout << "4. Show Recent Post" << endl;
     cout << "Enter Choice:";
     cin >> choice;
     cin.ignore();
@@ -217,6 +222,19 @@ void Insta::home(string username)
     else if (choice == 2)
     {
         signout();
+    }
+    else if (choice == 3)
+    {
+        cout << "Enter Post:";
+        getline(cin, post);
+        time_t now = time(0);
+        string posttime = ctime(&now);
+        activeuser->user->newPost(username, post, posttime);
+        home(username);
+    }
+    else if (choice == 4)
+    {
+        activeuser->user->getLatestPost();
     }
     else
     {
