@@ -9,8 +9,8 @@ User::User()
     last_name = "";
     DOB = "";
     gender = '\0';
-    friend_list =  new FriendList();
-    request_list = new RequestList();
+    friend_list = new FriendList();
+    // request_list = new RequestList();
 }
 User::User(string username, string email, string password, string first_name, string last_name, string DOB, char gender)
 {
@@ -21,8 +21,8 @@ User::User(string username, string email, string password, string first_name, st
     this->last_name = last_name;
     this->DOB = DOB;
     this->gender = gender;
-    friend_list =  new FriendList();
-    request_list = new RequestList();
+    friend_list = new FriendList();
+    // request_list = new RequestList();
 }
 void User::setpassword(string password)
 {
