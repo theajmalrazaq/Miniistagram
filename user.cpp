@@ -45,7 +45,7 @@ void User::setlast_name(string last_name)
 }
 void User::setlast_sign_in(string last_sign_in)
 {
-    this->last_singn_in = last_sign_in;
+    this->last_sign_in = last_sign_in;
 }
 void User::setDOB(string DOB)
 {
@@ -88,7 +88,7 @@ string User::getDOB()
 }
 string User::getlast_sign_in()
 {
-    return last_singn_in;
+    return last_sign_in;
 }
 char User::getgender()
 {
@@ -141,12 +141,15 @@ void User::setSecurityAnswers()
     cout << "Security Answers Set" << endl;
 }
 
-void User::sendrequest(string receiver)
+// In User.cpp
+void User::sendRequest(User *receiver)
 {
-    request_list.addRequest(receiver);
+    receiver->request_list.addRequest(this, receiver); // Pass pointers correctly
+    cout << "Friend request sent to " << receiver->getusername() << "." << endl;
 }
 
 void User::showRequests()
 {
-    request_list.showRequests();
+    cout << "Handling requests for " << username << ":" << endl;
+    request_list.menu(request_list);
 }

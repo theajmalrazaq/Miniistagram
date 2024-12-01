@@ -1,15 +1,19 @@
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
 
+// Forward declaration of the User class to avoid circular dependency
+class User;
 struct RequestNode
 {
     RequestNode *next;
     RequestNode *prev;
-    string sender;
+    User *sender;   // Use pointers to User class
+    User *receiver; // Use pointers to User class
     bool is_accepted;
     RequestNode();
-    RequestNode(string from);
+    RequestNode(User *sender, User *receiver); // Use pointers to User
 };
 
 class RequestList
@@ -20,20 +24,11 @@ private:
 
 public:
     RequestList();
-    void addRequest(string receiver);
-    void showRequests();
+    void addRequest(User *sender, User *receiver); // Use pointers to User
+    void showRequests() const;
     RequestNode *getFront() const;
     RequestNode *getBack() const;
-
-    void decideRequest()
-    {
-        string decision;
-        cout << "If you want to accept the request type \"ACCEPT\" to decline type \"REJECT\": \n";
-        getline(cin, decision);
-
-        if (decision == "ACCEPT")
-        {
-            front->is_accepted = true;
-        }
-    }
+    void acceptRequest(int index);
+    void sendRequestBack(int index);
+    void menu(RequestList &senderRequests);
 };

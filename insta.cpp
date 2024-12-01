@@ -309,7 +309,7 @@ void Insta::addfriend(string receiver)
         cout << "User '" << receiver << "' not found." << endl;
         return;
     }
-    userNode->user->sendrequest(activeuser->user->getusername());
+    activeuser->user->sendRequest(userNode->user);
     cout << "Friend request sent to " << receiver << endl;
 }
 

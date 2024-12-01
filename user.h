@@ -5,6 +5,7 @@
 #include "post.h"
 #include <ctime>
 using namespace std;
+
 class User
 {
 private:
@@ -17,7 +18,7 @@ private:
     string first_name;
     string last_name;
     char gender;
-    string last_singn_in;
+    string last_sign_in;
     string DOB;
     string security_answers[3];
     string security_questions[3] = {"What is your pet name?", "What is your favourite color?", "What is your favourite food?"};
@@ -25,7 +26,8 @@ private:
 public:
     User();
     User(string username, string email, string password, string first_name, string last_name, string DOB, char gender);
-    ////// Setters ///////
+
+    /////////// Setters /////////////
     void setusername(string);
     void setpassword(string);
     void setemail(string);
@@ -37,8 +39,11 @@ public:
     void newPost();
     void getLatestPost();
     void setSecurityAnswers();
-    void sendrequest(string);
+
+    // Friend Request Methods
+    void sendRequest(User *receiver);
     void showRequests();
+
     ////// Getters ///////
     string getfirst_name();
     string getlast_name();
