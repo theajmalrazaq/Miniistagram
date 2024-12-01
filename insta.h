@@ -6,6 +6,7 @@ class Insta
 {
 private:
     User *user;
+    string **connections;
     BST *bst;
     int user_count;
 
@@ -18,10 +19,9 @@ public:
     bool search(string username);
     void addfriend();
     void home(string username);
-    // void deleteaccount();
-    // void updateprofile();
     void viewprofile(string username);
     void signout();
     void showmenu();
     void inorderTraversal(BSTNode *node);
+    void resetpassword();
 };

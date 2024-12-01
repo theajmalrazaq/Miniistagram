@@ -2,6 +2,7 @@
 #include <string>
 #include "friendList.h"
 #include "post.h"
+#include <ctime>
 using namespace std;
 class User
 {
@@ -16,12 +17,13 @@ private:
     char gender;
     string last_singn_in;
     string DOB;
+    string security_answers[3];
+    string security_questions[3] = {"What is your pet name?", "What is your favourite color?", "What is your favourite food?"};
 
 public:
     User();
     User(string username, string email, string password, string first_name, string last_name, string DOB, char gender);
     ////// Setters ///////
-
     void setusername(string);
     void setpassword(string);
     void setemail(string);
@@ -30,8 +32,10 @@ public:
     void setlast_sign_in(string);
     void setgender(char);
     void setDOB(string);
-    void newPost(string, string, string);
+    void newPost();
     void getLatestPost();
+    void setSecurityAnswers();
+
     ////// Getters ///////
     string getfirst_name();
     string getlast_name();
@@ -39,6 +43,7 @@ public:
     string getusername();
     string getpassword();
     string getemail();
+    bool verifySecurityAnswers();
     char getgender();
     string getDOB();
 };

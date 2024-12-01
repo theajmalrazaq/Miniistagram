@@ -75,7 +75,6 @@ void Insta::signup()
     }
     ////////////////// Gender //////////////////
     int choice;
-
     cout << "1. Male" << endl;
     cout << "2. Female" << endl;
     cout << "Choose Your Gender :" << endl;
@@ -95,9 +94,10 @@ void Insta::signup()
         gender = 'F';
     }
     cin.ignore();
-
     User *newUser = new User(username, email, password, first_name, last_name, DOB, gender);
-    bst->insert(newUser); // Add user to the BST
+    cout << "Let's Secure Your Account" << endl;
+    newUser->setSecurityAnswers();
+    bst->insert(newUser);
     user[user_count] = *newUser;
     user_count++;
     cout << "Yahoooo You Made it!! " << endl;
@@ -197,6 +197,34 @@ void Insta::forgotpassword()
         cout << "Invalid username or email." << endl;
     }
 }
+/////////// Reset Password //////////
+void Insta::resetpassword()
+{
+    if (activeuser->user->verifySecurityAnswers())
+    {
+        string password;
+        cout << "Enter new password: ";
+        getline(cin, password);
+        while (!validate_strong_password(password) || password == activeuser->user->getpassword())
+        {
+            cout << "Please enter a new and strong password: ";
+            getline(cin, password);
+        }
+        activeuser->user->setpassword(password);
+        cout << "Password updated successfully." << endl;
+        cout << "Press 1 to go back to home" << endl;
+        int choice;
+        cin >> choice;
+        if (choice == 1)
+        {
+            home(activeuser->user->getusername());
+        }
+    }
+    else
+    {
+        cout << "Invalid Security Answers" << endl;
+    }
+}
 
 //////////// show home after login //////////////////
 void Insta::home(string username)
@@ -209,6 +237,7 @@ void Insta::home(string username)
     cout << "2. Sign Out" << endl;
     cout << "3. New Post" << endl;
     cout << "4. Show Recent Post" << endl;
+    cout << "5. Reset Password" << endl;
     cout << "Enter Choice:";
     cin >> choice;
     cin.ignore();
@@ -225,20 +254,21 @@ void Insta::home(string username)
     }
     else if (choice == 3)
     {
-        cout << "Enter Post:";
-        getline(cin, post);
-        time_t now = time(0);
-        string posttime = ctime(&now);
-        activeuser->user->newPost(username, post, posttime);
+        activeuser->user->newPost();
         home(username);
     }
     else if (choice == 4)
     {
         activeuser->user->getLatestPost();
     }
+    else if (choice == 5)
+    {
+        resetpassword();
+    }
     else
     {
         cout << "Invalid choice" << endl;
+        home(activeuser->user->getusername());
     }
 }
 

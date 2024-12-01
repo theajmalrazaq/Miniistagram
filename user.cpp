@@ -12,6 +12,8 @@ User::User()
     friend_list = new FriendList();
     post_stack = PostStack();
 }
+
+////////////////////////// Overloaded Constructor ////////////////////
 User::User(string username, string email, string password, string first_name, string last_name, string DOB, char gender)
 {
     this->username = username;
@@ -23,6 +25,8 @@ User::User(string username, string email, string password, string first_name, st
     this->gender = gender;
     friend_list = new FriendList();
 }
+
+////////////// setters ///////////////
 void User::setpassword(string password)
 {
     this->password = password;
@@ -55,6 +59,8 @@ void User::setusername(string username)
 {
     this->username = username;
 }
+
+/////////////// Getters ////////////////////
 string User::getfirst_name()
 {
     return this->first_name;
@@ -89,12 +95,48 @@ char User::getgender()
     return gender;
 }
 
-void User::newPost(string username, string post, string date)
+//////// function to add new post ////////////////////////
+void User::newPost()
 {
-    post_stack.newPost(username, post, date);
+    string post;
+    cout << "Enter Post:";
+    getline(cin, post);
+    time_t now = time(0);
+    string posttime = ctime(&now);
+    post_stack.newPost(this->username, post, posttime);
 }
 
+////////// function to get latest post ///////////////////
 void User::getLatestPost()
 {
     post_stack.peek();
+}
+
+////// verify qs for resetting password //////////////////
+bool User::verifySecurityAnswers()
+{
+    string arr[3];
+    for (int i = 0; i < 3; i++)
+    {
+        cout << "Question " << i + 1 << ":" << security_questions[i] << endl;
+        cin >> arr[i];
+        while (arr[i] != security_answers[i])
+        {
+            cout << "Invalid Answer" << endl;
+            cout << security_questions[i] << endl;
+            cin >> arr[i];
+        }
+    }
+    return true;
+}
+
+////////// set security answers at sign up ////////////////////
+void User::setSecurityAnswers()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        cout << security_questions[i] << endl;
+        cin >> security_answers[i];
+    }
+    cout << "Security Answers Set" << endl;
 }
