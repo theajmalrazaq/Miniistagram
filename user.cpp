@@ -140,3 +140,13 @@ void User::setSecurityAnswers()
     }
     cout << "Security Answers Set" << endl;
 }
+
+void User::sendrequest(string receiver)
+{
+    request_list.addRequest(receiver);
+}
+
+void User::showRequests()
+{
+    request_list.showRequests();
+}

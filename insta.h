@@ -17,7 +17,7 @@ public:
     void forgotpassword();
     void display();
     bool search(string username);
-    void addfriend();
+    void addfriend(string receiver);
     void home(string username);
     void viewprofile(string username);
     void signout();

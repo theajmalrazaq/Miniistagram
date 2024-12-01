@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "friendList.h"
+#include "requestList.h"
 #include "post.h"
 #include <ctime>
 using namespace std;
@@ -11,6 +12,7 @@ private:
     string password;
     string email;
     FriendList *friend_list;
+    RequestList request_list;
     PostStack post_stack;
     string first_name;
     string last_name;
@@ -35,7 +37,8 @@ public:
     void newPost();
     void getLatestPost();
     void setSecurityAnswers();
-
+    void sendrequest(string);
+    void showRequests();
     ////// Getters ///////
     string getfirst_name();
     string getlast_name();

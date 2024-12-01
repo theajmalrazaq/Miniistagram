@@ -104,32 +104,6 @@ void Insta::signup()
     cout << "Welcome To Instagram" << endl;
 }
 
-/////////////// View Profile //////////////////////
-void Insta::viewprofile(string username)
-{
-    int choice;
-
-    // Search for the user in the BST
-    BSTNode *userNode = bst->search(username);
-
-    if (userNode != nullptr)
-    {
-        // User found
-        cout << "+----------------------- User Profile--------------------------+" << endl;
-        cout << "First Name: " << userNode->user->getfirst_name() << endl;
-        cout << "Last Name: " << userNode->user->getlast_name() << endl;
-        cout << "Username: " << userNode->user->getusername() << endl;
-        cout << "+-------------------------------------------------+" << endl;
-        cout << "1. Add Friend" << endl;
-        cout << "2. Back" << endl;
-        cout << "Enter Your Choice: ";
-        cin >> choice;
-    }
-    else
-    {
-        cout << "User Not Found!!" << endl;
-    }
-}
 ///////////////////// sign in /////////////////////
 BSTNode *activeuser;
 void Insta::signin()
@@ -197,6 +171,66 @@ void Insta::forgotpassword()
         cout << "Invalid username or email." << endl;
     }
 }
+
+//////////// show home after login //////////////////
+void Insta::home(string username)
+{
+    int choice;
+    string post;
+    string date;
+    cout << "welcome " << username << endl;
+    cout << "1. Search User" << endl;
+    cout << "2. Sign Out" << endl;
+    cout << "3. New Post" << endl;
+    cout << "4. Show Recent Post" << endl;
+    cout << "5. Reset Password" << endl;
+    cout << "6. Show Requests" << endl;
+
+    cout << "Enter Choice:";
+    cin >> choice;
+    cin.ignore();
+    if (choice == 1)
+    {
+        string searchusername;
+        cout << "Enter username: ";
+        getline(cin, searchusername);
+        viewprofile(searchusername);
+    }
+    else if (choice == 2)
+    {
+        signout();
+    }
+    else if (choice == 3)
+    {
+        activeuser->user->newPost();
+        home(username);
+    }
+    else if (choice == 4)
+    {
+        activeuser->user->getLatestPost();
+    }
+    else if (choice == 5)
+    {
+        resetpassword();
+    }
+    else if (choice == 6)
+    {
+        activeuser->user->showRequests();
+        cout << "Press 1 to go back to home" << endl;
+        int choice;
+        cin >> choice;
+        if (choice == 1)
+        {
+            home(activeuser->user->getusername());
+        }
+    }
+    else
+    {
+        cout << "Invalid choice" << endl;
+        home(activeuser->user->getusername());
+    }
+}
+
 /////////// Reset Password //////////
 void Insta::resetpassword()
 {
@@ -225,91 +259,60 @@ void Insta::resetpassword()
         cout << "Invalid Security Answers" << endl;
     }
 }
-
-//////////// show home after login //////////////////
-void Insta::home(string username)
+/////////////// View Profile //////////////////////
+void Insta::viewprofile(string username)
 {
     int choice;
-    string post;
-    string date;
-    cout << "welcome " << username << endl;
-    cout << "1 .Search User" << endl;
-    cout << "2. Sign Out" << endl;
-    cout << "3. New Post" << endl;
-    cout << "4. Show Recent Post" << endl;
-    cout << "5. Reset Password" << endl;
-    cout << "Enter Choice:";
-    cin >> choice;
-    cin.ignore();
-    if (choice == 1)
+
+    // Search for the user in the BST
+    BSTNode *userNode = bst->search(username);
+
+    if (userNode != nullptr)
     {
-        string searchusername;
-        cout << "Enter username: ";
-        getline(cin, searchusername);
-        viewprofile(searchusername);
-    }
-    else if (choice == 2)
-    {
-        signout();
-    }
-    else if (choice == 3)
-    {
-        activeuser->user->newPost();
-        home(username);
-    }
-    else if (choice == 4)
-    {
-        activeuser->user->getLatestPost();
-    }
-    else if (choice == 5)
-    {
-        resetpassword();
+        // User found
+        cout << "+----------------------- User Profile--------------------------+" << endl;
+        cout << "First Name: " << userNode->user->getfirst_name() << endl;
+        cout << "Last Name: " << userNode->user->getlast_name() << endl;
+        cout << "Username: " << userNode->user->getusername() << endl;
+        cout << "+-------------------------------------------------+" << endl;
+        cout << "1. Add Friend" << endl;
+        cout << "2. Back" << endl;
+        cout << "Enter Your Choice: ";
+        cin >> choice;
+        cin.ignore();
+        if (choice == 1)
+        {
+            addfriend(username);
+        }
+        else if (choice == 2)
+        {
+            home(activeuser->user->getusername());
+        }
+        else
+        {
+            cout << "Invalid choice" << endl;
+            viewprofile(username);
+        }
     }
     else
     {
-        cout << "Invalid choice" << endl;
-        home(activeuser->user->getusername());
+        cout << "User Not Found!!" << endl;
     }
 }
 
 ////////////////// Add Friend /////////////////
-void Insta::addfriend()
+void Insta::addfriend(string receiver)
 {
-    string sender;
-    string receiver;
-    cout << "Enter sender username: ";
-    getline(cin, sender);
-    cout << "Enter receiver username: ";
-    getline(cin, receiver);
-    bool is_sender = false;
-    bool is_receiver = false;
-    for (int i = 0; i < user_count; i++)
+    BSTNode *userNode = bst->search(receiver);
+    if (userNode == nullptr)
     {
-        if (user[i].getusername() == sender)
-        {
-            is_sender = true;
-        }
-        if (user[i].getusername() == receiver)
-        {
-            is_receiver = true;
-        }
+        cout << "User '" << receiver << "' not found." << endl;
+        return;
     }
-    if (is_sender && is_receiver)
-    {
-        for (int i = 0; i < user_count; i++)
-        {
-            if (user[i].getusername() == receiver)
-            {
-                // user[i].friend_requests(sender, receiver);
-            }
-        }
-        cout << "Friend request sent" << endl;
-    }
-    else
-    {
-        cout << "Invalid sender or receiver" << endl;
-    }
+    userNode->user->sendrequest(activeuser->user->getusername());
+    cout << "Friend request sent to " << receiver << endl;
 }
+
 /////// Signout /////
 void Insta::signout()
 {

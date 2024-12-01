@@ -1,37 +1,39 @@
 #include <iostream>
-#include<string>
+#include <string>
 using namespace std;
 
-struct RequestNode{
-    RequestNode* next;
-    RequestNode* prev;
+struct RequestNode
+{
+    RequestNode *next;
+    RequestNode *prev;
     string sender;
     bool is_accepted;
     RequestNode();
     RequestNode(string from);
 };
 
-class RequestList{
+class RequestList
+{
 private:
-    RequestNode* front;
-    RequestNode* back;
+    RequestNode *front;
+    RequestNode *back;
+
 public:
     RequestList();
+    void addRequest(string receiver);
+    void showRequests();
+    RequestNode *getFront() const;
+    RequestNode *getBack() const;
 
-    void addRequest(string sender);
-
-    RequestNode* getFront()const;
-    RequestNode* getBack()const;
-
-
-    void decideRequest(){
+    void decideRequest()
+    {
         string decision;
-        cout<<"If you want to accept the request type \"ACCEPT\" to decline type \"REJECT\": \n";
+        cout << "If you want to accept the request type \"ACCEPT\" to decline type \"REJECT\": \n";
         getline(cin, decision);
 
-        if(decision == "ACCEPT"){
+        if (decision == "ACCEPT")
+        {
             front->is_accepted = true;
         }
-
     }
 };
